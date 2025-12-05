@@ -43,8 +43,8 @@ Yet, this is the only tool web component authors have today.
 Additionally, certain web components have an attribute counterpart to link them to another element (or link _to_ them from another element).
 A native example here is `<input list>` and `<datalist>`. While `<datalist>` could be implemented as a web component, there is no authorland counterpart for the `list` attribute.
 
-Besides the philosophical data modeling argument, overcomponentization introduces tangible problems. 
-Unlike framework components that can compile to much shallower DOM trees, inserting a whole new element in the DOM has a **cost**. 
+Besides the philosophical data modeling argument, overcomponentization introduces tangible problems.
+Unlike framework components that can compile to much shallower DOM trees, inserting a whole new element in the DOM has a **cost**.
 It affects **selector matching, DOM traversal, styling**, and many other things.
 
 Inserting a custom element is not even allowed in all contexts.
@@ -86,9 +86,9 @@ A **[concrete list of use cases can be found here](use-cases.md)**.
 
 - [Minimal custom attributes extending `Attr`](https://github.com/WICG/webcomponents/issues/1029#issuecomment-3597708609) by @keithamus
 	- [Reflection via `attr.value`](https://github.com/WICG/webcomponents/issues/1029#issuecomment-2455166850)
-- [Proposal: Custom attributes for all elements, enhancements for more complex use cases](https://github.com/WICG/webcomponents/issues/1029) by @leaverou 
+- [Proposal: Custom attributes for all elements, enhancements for more complex use cases](https://github.com/WICG/webcomponents/issues/1029) by @leaverou
 - [Custom Element Features, Built-in Enhancements, Itemscope Managers](https://github.com/WICG/webcomponents/issues/1000)
-- [Original custom attributes proposal (naming only)](https://github.com/whatwg/html/issues/2271) by @leaverou 
+- [Original custom attributes proposal (naming only)](https://github.com/whatwg/html/issues/2271) by @leaverou
 - [Element Behaviors](https://github.com/lume/element-behaviors) by @lume
 - [@lume's custom attributes proposal](https://github.com/lume/custom-attributes) by @lume
 
@@ -107,12 +107,12 @@ A **[concrete list of use cases can be found here](use-cases.md)**.
 
 ## Design principles
 
-Generalizing the [PoC](https://www.w3.org/TR/design-principles/#priority-of-constituencies) as [consumers > producers](https://lea.verou.me/blog/2025/user-effort/#consumers-over-producers), we end up with this expanded PoC: 
-1. End-users 
-2. HTML authors 
-3. Custom attribute authors 
-4. Implementors 
-5. Spec authors 
+Generalizing the [PoC](https://www.w3.org/TR/design-principles/#priority-of-constituencies) as [consumers > producers](https://lea.verou.me/blog/2025/user-effort/#consumers-over-producers), we end up with this expanded PoC:
+1. End-users
+2. HTML authors
+3. Custom attribute authors
+4. Implementors
+5. Spec authors
 6. Philosophical purity
 
 ## Design decisions
@@ -170,7 +170,7 @@ For example, consider the `style` attribute and `element.style`, which is a whol
 - While `Attr` is not very widely used directly, being a very old API means there can be any number of scripts depending on `attr.value` being a string.
 
 > [!Important]
-> Let’s use a separate property (e.g. `data`, `parsed`, etc) to hold the converted value. `Attr` would define it as an accessor over `this.value`, but authors can override it so that it does different things. 
+> Let’s use a separate property (e.g. `data`, `parsed`, etc) to hold the converted value. `Attr` would define it as an accessor over `this.value`, but authors can override it so that it does different things.
 
 This approach allows authors to decide for themselves what the source of truth would be.
 If they'd prefer, they can even define `data` it as a class field, with `value` being the accessor that proxies it.
@@ -184,17 +184,17 @@ However, just like reflection, trying to specify this adds additional complexity
 with the model of `Attr` subclasses, authors can always hang methods on their `Attr` subclass, and they will be accessible via `element.attributes.attrName.methodName()`.
 
 Authors can use additional JS features to improve ergonomics, such as [first-class protocols](https://github.com/tc39/proposal-first-class-protocols), [decorators](https://github.com/tc39/proposal-decorators),
-or even monkey-patching, at their own risk. 
+or even monkey-patching, at their own risk.
 
 > [!Important]
 > It doesn't look like we need a primitive for this.
 
 If we want to make things easier, we *could* have a lifecycle hook for registration that lets authors react to the attribute being registered on an element.
 
-```js 
+```js
 class MyAttr extends Attr {
-	// elided 
-	
+	// elided
+
 	static whenDefined(ElementConstructor) {
 		console.log("hey " + ElementConstructor.name);
 	}
@@ -224,7 +224,7 @@ Additionally, as @annevk [points out](https://github.com/WICG/webcomponents/issu
 
 @sorvell also [talked](https://github.com/WICG/webcomponents/issues/1029#issuecomment-1718332785) about scoped registries:
 > Experience with customElements and the scoped registries proposal suggests that scoping is a must and to avoid the pain custom elements has gone through, this feature shouldn't ship without it.
-While it's clear that 
+While it's clear that
 
 However, given the amount of time it took to ship scoped registries for custom elements, it does not seem prudent for this to be a blocker.
 Nothing prevents us from shipping scoped custom attributes later.
@@ -242,7 +242,7 @@ Therefore, it should be possible to **register the same attribute to multiple cl
 E.g. consider a `persist-value` attribute that is placed on form controls to persist their values in localStorage whenever they are edited.
 We may want to register it on built-ins like `HTMLInputElement`, `HTMLTextAreaElement`, `HTMLSelectElement` by default:
 
-```js 
+```js
 // persist-value.js
 export class PersistAttr extends Attr {
 	// elided
@@ -255,7 +255,7 @@ HTMLSelectElement.customAttributes.define("persist-value", PersistAttr);
 ```
 
 Then, consumers may want to additionally register it on custom form controls they use:
-```js 
+```js
 import { PersistAttr, RangeSlider } from "./attrs/persist-value.js";
 
 RangeSlider.customAttributes.define("persist-value", PersistAttr);
@@ -263,7 +263,7 @@ RangeSlider.customAttributes.define("persist-value", PersistAttr);
 
 ### Naming
 
-Originally, **hyphens** were suggested, as a way to mirror custom element naming rules. 
+Originally, **hyphens** were suggested, as a way to mirror custom element naming rules.
 However, there are many exceptions in the web platform making this a bit awkward, e.g.:
 
 - A ton of SVG presentation attributes (e.g. `fill-opacity`)
@@ -280,9 +280,9 @@ On two different social media polls, about half of authors voted that they prior
 - https://x.com/LeaVerou/status/1863812496106389819
 - https://front-end.social/@leaverou/113587139842885936
 
-<!-- 
+<!--
 Additionally, as @jakearchibald [pointed out](https://github.com/WICG/webcomponents/issues/1029#issuecomment-2454991200), even attributes without dashes often camelCase in JS, which would make reflection clash (e.g. `readonly` → `readOnly`).
-Of course that is not a problem if we don't handle reflection automatically. 
+Of course that is not a problem if we don't handle reflection automatically.
 -->
 
 Another option would be a specific **prefix**, though given that the attribute name itself often needs to be namespaced with a library prefix, this would only produce acceptable ergonomics if very short, e.g. a single character (`#`, `$`, `:`, `@` etc).
@@ -299,16 +299,16 @@ Do they still correspond to the *element* being connected, or the *attribute* be
 @DeepDoge [makes a good case](https://github.com/WICG/webcomponents/issues/1029#issuecomment-3599188181) for the latter:
 
 > IMO custom attributes are composable behavior units, kind of like a superset of extended custom elements. So, `connectedCallback()` should run only when both are true:
-> 
+>
 > * The attribute is attached to an element
 > * That element is connected to the DOM
-> 
+>
 > If we simplify it even more, it should trigger when the attribute is connected to the DOM, not when attribute is connected to an element.
-> 
+>
 > Just like how a custom element's `connectedCallback()` gets triggered when the element is actually connected to the DOM, not when it has a parent.
-> 
+>
 > The whole point of `connectedCallback()` / `disconnectedCallback()` is to initialize or clean things up depending on whether the thing (element or attribute) is live in the DOM.
-> 
+>
 > So should it be called "when the attribute is connected, or when the element is connected?": It should be called when the attribute is connected to the DOM, which also requires element its connect to be connected to the DOM as well. I think we can all agree that "Connected" means "Connected to the DOM".
 
 We could probably define similar semantics for other lifecycle callbacks (`disconnectedCallback`, `adoptedCallback` etc), though they may be less straightforward.
@@ -316,7 +316,7 @@ We could probably define similar semantics for other lifecycle callbacks (`disco
 It would be good to do a review of use cases to see how common it is to need lifecycle hooks around the element itself, that are separate from those of the attribute node. Assuming these are niche, they can always be addressed via `MutationObserver` improvements down the line (e.g. [observing connectedness is already an open feature request](https://github.com/whatwg/dom/issues/533))
 
 > [!Important]
-> Let's define lifecycle callbacks taking into account the element and the attribute as a whole. 
+> Let's define lifecycle callbacks taking into account the element and the attribute as a whole.
 > Review use cases to see if element-specific hooks are needed.
 
 
@@ -354,7 +354,7 @@ Putting all of the above together gives us a strawman to facilitate discussion.
 
 Custom attributes are defined as a subclass of `Attr` and registered for use with one or more element constructors:
 
-```js 
+```js
 class MyTooltip extends Attr {
 	// elided
 }
@@ -369,7 +369,7 @@ HTMLElement.customAttributes.define("my-tooltip", MyTooltip);
 New static member of type `CustomAttributeRegistry`, with the same methods as `CustomElementRegistry`. This is a distinct instance per subclass, and an element recognizes attributes registered on any of its superclasses.
 
 > [!Note]
-> We may want to define a `CustomRegistry` superclass that they both inherit from. 
+> We may want to define a `CustomRegistry` superclass that they both inherit from.
 
 ### `Attr` subclass members
 
@@ -394,16 +394,16 @@ Note that browsers currently create a new `Attr` node every time an attribute is
 
 If reusing the same node is desirable (e.g. due to high setup costs), this could be done with a `WeakMap`:
 
-```js 
+```js
 /** @type WeakMap<HTMLElement, Attr> */
 let nodes = new WeakMap();
 
 class MyAttr extends Attr {
 	constructor() {
 		super();
-		
+
 		let existing = nodes.get(this.ownerElement);
-		
+
 		if (existing) {
 			return existing;
 		}
@@ -419,7 +419,7 @@ presumably by `Element`’s constructor ([demo](https://codepen.io/leaverou/pen/
 Should upgrading happen then too?
 This means any custom attribute code needs to run before the element has a chance to construct itself fully.
 
-We could also define it to run after the constructor it was registered on. 
+We could also define it to run after the constructor it was registered on.
 E.g. registering an attribute on `HTMLElement` would run it after the `HTMLElement` constructor, whereas registering an attribute on `HTMLFormElement` would run it after the `HTMLFormElement` constructor.
 
 ## FAQ
@@ -443,10 +443,10 @@ Not really.
 First, currently the only allowable namespace for custom attributes per spec is still `data-*`.
 Coupled together with a library’s own prefix, this makes every attribute comically verbose.
 
-`MutationObserver` does not work across shadow roots (though there is an [open issue](https://github.com/whatwg/dom/issues/1287) for observing open roots). 
+`MutationObserver` does not work across shadow roots (though there is an [open issue](https://github.com/whatwg/dom/issues/1287) for observing open roots).
 Even if it were, there is no way to run preparatory code before the element is connected.
 
-`MutationObserver` is for reacting to future changes. 
+`MutationObserver` is for reacting to future changes.
 To react to existing uses of the attribute, we'd also need [`querySelectorAll()` improvements](https://github.com/whatwg/dom/issues/1422).
 
 But even if all the moving pieces were there, having a primitive for this makes it easier to document, type, explain, and distribute.

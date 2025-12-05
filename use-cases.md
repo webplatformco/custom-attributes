@@ -34,7 +34,7 @@ This document is to list very specific, concrete use cases.
 - Highlight matches within (e.g. `highlight="foobar"` )
 - `removable`  (adds X button that removes the element and fires a suitable event)
 - Conditional rendering (`show-if`  , `hide-if`  , `remove-if` etc)
-- Emulate events for test framework (e.g. `click-after="0.5"` ) 
+- Emulate events for test framework (e.g. `click-after="0.5"` )
 - LIterally all [htmx](https://htmx.org/docs/) attributes
 
 ## Form control attributes
@@ -45,31 +45,31 @@ This document is to list very specific, concrete use cases.
 - `required-trimmed`: Like `required`, but whitespace-only values don't count
 - Show/hide password
 - Checkboxes
-	- Designate a checkbox as an aggregate checkbox for checkboxes with a given `name`  
+	- Designate a checkbox as an aggregate checkbox for checkboxes with a given `name`
 	  - Or a `<progress>`  element
 	- `indeterminate`  attribute
 - Text inputs
 	- Specific format, e.g. currency, measurement, 5-digit code, etc
-- `<button>`  
-	- `<button href>`  
+- `<button>`
+	- `<button href>`
 	- Disable button if field is invalid (or form)
 
 ## Tables
-- `<table sortable>` 
+- `<table sortable>`
 - `<td value>` to be used for filtering and sorting
 
 ## Code
 
 - `<pre src>`  for loading and highlighting a file
 - `<pre editable>` for code editors (or any other element)
-- `<pre normalize-whitespace>`  
+- `<pre normalize-whitespace>`
 
 ## Media elements
 
 - HTMLMediaElement (`<audio>`  and `<video>` )
   - Custom toolbar
-  - `start-at="0:05"`  
-  - `lazy-src`  
+  - `start-at="0:05"`
+  - `lazy-src`
 - Images
   - Click to play (with separate `src`  for the static frame)
 
