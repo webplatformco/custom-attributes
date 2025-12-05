@@ -2,7 +2,35 @@
 
 Authors: Lea Verou, TBD
 
-[toc]
+1. [Introduction](#introduction)
+2. [Prior art](#prior-art)
+	1. [Related proposals](#related-proposals)
+	2. [Userland](#userland)
+	3. [Other](#other)
+3. [Design principles](#design-principles)
+4. [Design decisions](#design-decisions)
+	1. [How to specify?](#how-to-specify)
+	2. [Reflection](#reflection)
+	3. [Which `Attr` property stores the JS-facing value?](#which-attr-property-stores-the-js-facing-value)
+	4. [API surface](#api-surface)
+	5. [Scoping](#scoping)
+	6. [Same attribute on multiple element types](#same-attribute-on-multiple-element-types)
+	7. [Naming](#naming)
+	8. [Lifecycle hooks](#lifecycle-hooks)
+	9. [How to react to attribute changes?](#how-to-react-to-attribute-changes)
+	10. [Traits involving multiple attributes](#traits-involving-multiple-attributes)
+5. [Current Proposal](#current-proposal)
+	1. [Summary](#summary)
+	2. [New members on existing interfaces](#new-members-on-existing-interfaces)
+	3. [`Attr` subclass members](#attr-subclass-members)
+	4. [Lifecycle hooks](#lifecycle-hooks-1)
+6. [Notes / Patterns](#notes--patterns)
+	1. [Persistent attribute node](#persistent-attribute-node)
+	2. [Timing](#timing)
+7. [FAQ](#faq)
+	1. [Does this replace custom elements?](#does-this-replace-custom-elements)
+	2. [Can't we do this already with `MutationObserver`?](#cant-we-do-this-already-with-mutationobserver)
+
 
 ## Introduction
 

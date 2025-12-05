@@ -1,6 +1,13 @@
 # Concrete Use cases
 
-[toc]
+1. [Native functionality that could have been implemented via CA](#native-functionality-that-could-have-been-implemented-via-ca)
+2. [Global attributes](#global-attributes)
+3. [Form control attributes](#form-control-attributes)
+4. [Tables](#tables)
+5. [Code](#code)
+6. [Media elements](#media-elements)
+7. [Other](#other)
+
 
 The use cases on a high level are outlined in the [explainer](README.md).
 This document is to list very specific, concrete use cases.
