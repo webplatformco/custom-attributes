@@ -195,13 +195,13 @@ If we want to make things easier, we *could* have a lifecycle hook for registrat
 class MyAttr extends Attr {
 	// elided
 
-	static whenDefined(ElementConstructor) {
-		console.log("hey " + ElementConstructor.name);
+	static definedCallback(name, ElementConstructor) {
+		console.log(name, ElementConstructor.name);
 	}
 }
 
 HTMLInputElement.customAttributes.define("my-attr", MyAttr);
-// prints "hey HTMLInputElement"
+// prints my-attr HTMLInputElement
 ```
 
 ### Scoping
@@ -384,7 +384,7 @@ Lifecycle callbacks similar to custom elements are available:
 - `attributeChangedCallback()`: Executed when the attribute itself or any of the attributes in `this.constructor.observedAttributes` are changed, added, removed, or replaced. The attribute itself is always observed whether it’s specified in `observedAttributes` or not.
 
 There is also a static lifecycle hook:
-- `whenDefined(ElementConstructor)`: Executed whenever the attribute is defined on an element constructor
+- `definedCallback(name, ElementConstructor)`: Executed whenever the attribute is defined on an element constructor
 
 ## Notes / Patterns
 
