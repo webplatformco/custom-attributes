@@ -50,6 +50,8 @@ Being able to define custom attributes that can be used on any element also addr
 which was one of the most prominent pain points around Web Components per State of HTML 2025.
 Authors can simply do `<button my-button>` rather than having to define their own `<my-button>` component that emulates or wraps buttons, introducing a ton of complexity.
 
+A **[concrete list of use cases can be found here](use-cases.md)**.
+
 ## Prior art
 
 ### Related proposals
@@ -64,6 +66,7 @@ Authors can simply do `<button my-button>` rather than having to define their ow
 
 ### Userland
 
+- [htmx](https://htmx.org/)
 - [VueJS custom directives](https://vuejs.org/guide/reusability/custom-directives)
 - [Angular directives](https://angular.dev/guide/directives/attribute-directives)
 - [Svelte attachments](https://svelte.dev/docs/svelte/@attach)
