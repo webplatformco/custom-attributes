@@ -91,6 +91,7 @@ A **[concrete list of use cases can be found here](use-cases.md)**.
 - [Original custom attributes proposal (naming only)](https://github.com/whatwg/html/issues/2271) by @leaverou
 - [Element Behaviors](https://github.com/lume/element-behaviors) by @lume
 - [@lume's custom attributes proposal](https://github.com/lume/custom-attributes) by @lume
+- [Custom Attributes from the Web Components CG 2022 TPAC Report](https://w3c.github.io/webcomponents-cg/2022.html#custom-attributes) by @EisenbergEffect
 
 ### Userland
 
@@ -100,6 +101,7 @@ A **[concrete list of use cases can be found here](use-cases.md)**.
 - [Svelte attachments](https://svelte.dev/docs/svelte/@attach)
 - [SolidJS custom directives](https://www.solidjs.com/tutorial/bindings_directives)
 - [Alpine.js custom directives](https://alpinejs.dev/advanced/extending)
+- [Aurelia Custom Attributes ca2015](https://aurelia-1.gitbook.io/v1-docs/templates/custom-attributes)
 
 ### Other
 
